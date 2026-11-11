@@ -69,3 +69,22 @@ Work is complete when:
 - Documentation updated
 - Code reviewed
 - Feature tested
+
+## Change Management
+
+All development work should consider the following artefacts:
+
+1. Source Code
+2. Documentation
+3. Testing
+4. Project Tracking
+
+Before a pull request is completed, the developer should determine whether updates are required in any of these areas.
+
+Questions to ask:
+
+- Does documentation need updating?
+- Does a new ticket need creating?
+- Does an existing ticket need updating?
+- Do new tests need adding?
+- Do existing tests need updating?
