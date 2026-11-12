@@ -88,3 +88,24 @@ Questions to ask:
 - Does an existing ticket need updating?
 - Do new tests need adding?
 - Do existing tests need updating?
+
+## Testing Policy
+
+Manual testing is acceptable during project foundation work.
+
+Once TS-001 is completed:
+
+- All new business logic must include automated tests.
+- Existing tests must be updated when functionality changes.
+- Pull requests affecting business logic should not be merged with failing tests.
+
+Testing priorities are:
+
+1. Rules Engine
+2. Validation Logic
+3. Points Calculation
+4. Data Loading
+5. API Behaviour
+6. User Workflows
+
+Static UI elements should only be tested where they support critical workflows.
