@@ -8,17 +8,32 @@ It should be used as a reference when designing new schemas, implementing featur
 
 ---
 
-## Current Domain Model
+# Current Domain Model
 
 ```text
 Game
 │
-└── Faction
-     │
-     └── Unit
-```
+├── Factions
+│
+├── Rules
+│
+└── Units
+      │
+      ├── Tags
+      ├── Available Upgrades
+      └── Validation Rules
 
----
+
+Roster
+│
+├── Game Reference
+├── Faction Reference
+│
+└── Roster Entries
+       │
+       ├── Unit Reference
+       └── Selected Upgrades
+```
 
 ## Ownership Hierarchy
 
@@ -29,6 +44,31 @@ A Faction owns one or more Units.
 Units are the lowest-level entity currently defined within the domain model.
 
 ---
+
+## Ownership Model
+
+```text
+Game
+└── Faction
+     └── Unit
+
+Roster
+└── Roster Entry
+```
+
+## Reference Model
+
+```text
+Roster
+│
+├── References Game
+├── References Faction
+│
+└── Contains Roster Entries
+       │
+       ├── References Unit
+       └── References Upgrades
+```
 
 ## Edition Support
 
@@ -83,13 +123,13 @@ Roster
 
 ## Architectural Principles
 
-### Everything Is Data
-
-The application should derive behaviour from configurable data.
-
-Avoid hardcoded game-specific logic wherever possible.
-
----
+- Everything is data
+- References over duplication
+- Rules operate on tags
+- Editions are independent
+- Units are templates
+- Rosters contain selections
+```
 
 ### References Over Duplication
 
