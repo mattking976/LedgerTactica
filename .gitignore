@@ -6,6 +6,9 @@ build/
 
 coverage/
 
+frontend/playwright-report/
+frontend/test-results/
+
 .vscode/settings.json
 
 .DS_Store
