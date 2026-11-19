@@ -84,6 +84,18 @@ Requires the presence of a tag.
 
 Prevents a tag from appearing.
 
+### points-limit
+
+Requires a calculated roster cost to remain at or below a configured value.
+
+### unlock-condition
+
+Allows an upgrade or option only while a source tag condition is satisfied.
+
+### maximum-duplicates
+
+Restricts repeated selections of a named Unit or tagged Unit type.
+
 ---
 
 ## Future Rule Types
@@ -91,8 +103,12 @@ Prevents a tag from appearing.
 Examples:
 
 - unit-ratio
-- unlock-condition
 - mutual-exclusion
 - upgrade-restriction
 
 These should be introduced only when required.
+
+## Detailed Configuration
+
+See [Validation Rule Schema](validation-rule-schema.md) for field definitions,
+rule examples, validation result shape and cross-system extension guidance.
