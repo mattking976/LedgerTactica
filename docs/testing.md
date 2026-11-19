@@ -5,16 +5,20 @@
 Ledger Tactica uses Vitest for frontend and backend unit and integration tests.
 Each package owns its dependencies, configuration and test scripts.
 
+Frontend end-to-end tests use Playwright and run in Chromium.
+
 ## Test Locations
 
-Tests are colocated with the code they cover and use `.test.ts` or `.test.tsx`
-suffixes.
+Unit and integration tests are colocated with the code they cover and use
+`.test.ts` or `.test.tsx` suffixes. Frontend end-to-end tests live in `frontend/e2e/`
+and use `.spec.ts` suffixes.
 
 Examples:
 
 ```text
 frontend/src/pages/HomePage.test.tsx
 backend/src/app.test.ts
+frontend/e2e/navigation.spec.ts
 ```
 
 ## Running Tests
@@ -30,11 +34,23 @@ npm run coverage
 `test` runs the suite once, `test:watch` starts Vitest in watch mode, and `coverage`
 reports V8 coverage in the terminal and an HTML report under `coverage/`.
 
+Run frontend end-to-end tests from `frontend/`:
+
+```bash
+npx playwright install chromium
+npm run test:e2e
+```
+
+The browser installation is needed once per development machine. Playwright starts
+the Vite development server automatically; the current smoke test covers navigation
+between the home and rosters pages.
+
 ## Continuous Integration
 
 GitHub Actions runs the frontend and backend typechecks, builds and tests for every
-pull request and for pushes to `main`. Dependency installation uses each package's
-lockfile with `npm ci`.
+pull request and for pushes to `main`. It also runs frontend end-to-end tests using
+Playwright Chromium. Dependency installation uses each package's lockfile with
+`npm ci`.
 
 ## Frontend Tests
 
