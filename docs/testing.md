@@ -30,6 +30,12 @@ npm run coverage
 `test` runs the suite once, `test:watch` starts Vitest in watch mode, and `coverage`
 reports V8 coverage in the terminal and an HTML report under `coverage/`.
 
+## Continuous Integration
+
+GitHub Actions runs the frontend and backend typechecks, builds and tests for every
+pull request and for pushes to `main`. Dependency installation uses each package's
+lockfile with `npm ci`.
+
 ## Frontend Tests
 
 Frontend component tests use jsdom and React Testing Library. Assert user-observable
