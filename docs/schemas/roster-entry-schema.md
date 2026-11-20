@@ -100,6 +100,10 @@ Each Upgrade selection records its identifier and selected quantity:
 | upgradeId | string | Yes | Referenced Upgrade |
 | quantity | number | Yes | Number selected |
 
+For a `flat` Upgrade, quantity is the number of models/items selected. For a
+`per-model` all-models toggle, quantity is `1`; the Upgrade cost scales across the
+Roster Entry's `quantity`.
+
 ```json
 "selectedUpgrades": [
   { "upgradeId": "paragon-blade", "quantity": 1 }
