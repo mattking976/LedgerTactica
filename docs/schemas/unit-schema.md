@@ -145,8 +145,8 @@ For tiered variable-size pricing, define each inclusive size range:
 {
   "type": "size-tier",
   "tiers": [
-    { "minSize": 5, "maxSize": 5, "cost": 80 },
-    { "minSize": 10, "maxSize": 10, "cost": 140 }
+    { "minSize": 5, "maxSize": 7, "cost": 80 },
+    { "minSize": 8, "maxSize": 10, "cost": 140 }
   ]
 }
 ```
@@ -301,7 +301,6 @@ Support for these features should not require redesign of the existing schema.
 - baseCost
 - minSize
 - maxSize
-- availableUpgrades
 - tags
 - supported
 
@@ -312,7 +311,7 @@ Support for these features should not require redesign of the existing schema.
 - baseCost must be greater than or equal to zero
 - costModel must be one of `fixed`, `per-model`, or `size-tier`
 - per-model `additionalModelCost` must be greater than or equal to zero
-- size-tier ranges must be within minSize/maxSize and must not overlap
+- size-tier ranges must cover minSize through maxSize without gaps or overlaps
 - available upgrade IDs must exist
 - available upgrade min must be at least zero
 - available upgrade max must be greater than or equal to min
