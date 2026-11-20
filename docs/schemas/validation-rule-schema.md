@@ -122,10 +122,12 @@ Requires at least `value` selected Units or Roster Entries containing `tag`.
 ```
 
 The example is valid when the roster contains one or more entries whose Unit definition
-contains `hq`.
+contains `hq`. In the MVP, `scope` defaults to `roster` and each matching Roster Entry
+counts once, regardless of its model quantity. Unit tags are counted once per entry,
+not once per tag occurrence.
 
-Count the matching Roster Entries or models according to the rule's scope. A Unit
-definition's tag array must not be counted multiple times.
+`maximum-tag-count` uses the same counting semantics. Both tag-count rules may include
+`unitId` to restrict the count to one Unit definition; they do not count Upgrade tags.
 
 ---
 
@@ -165,7 +167,9 @@ Use an explicit `unitId` only when the rules concern one named Unit template:
 ```
 
 This rule counts Roster Entries referencing `legion-praetor`. It does not prohibit
-different Unit definitions that happen to have the same display name.
+different Unit definitions that happen to have the same display name. The MVP also
+allows `tag` instead of `unitId` to count entries whose Unit has that tag. Exactly one
+of these selectors is required, and entry `quantity` does not multiply the count.
 
 ---
 
@@ -184,11 +188,17 @@ Requires at least one selected Unit or Upgrade containing `tag`.
 Required tags are useful for detached gameplay concepts, but they must not be used as
 substitutes for explicit tag semantics or hierarchy.
 
+By default, this checks tags on selected Units and Upgrades. `unitId` or `upgradeId`
+may restrict the check to one entity type. With `scope: "faction"`, the rule checks
+the selected Faction's tags instead.
+
 ---
 
 ## Prohibited Tag
 
 Prevents matching Units or Upgrades from being selected.
+
+It uses the same `scope`, `unitId`, and `upgradeId` behavior as `required-tag`.
 
 ```json
 {
@@ -217,7 +227,7 @@ that result to the rule; it must not implement points calculation itself.
 
 The `pointsLimit` field on a Roster may provide the player-selected limit. A rule can
 also define a system or format limit. When both exist, the stricter applicable limit
-must be reported without replacing either source value.
+applies; the engine reports both source values unchanged.
 
 ---
 
@@ -237,6 +247,12 @@ Makes an option available only while a source condition is satisfied.
 
 An unlock rule is satisfied when the selected Unit or Roster Entry contains
 `sourceTag`. It permits selection of entities or options containing `targetTag`.
+
+The MVP defaults `scope` to `roster`, allowing a source-tagged Unit anywhere in the
+Roster to unlock a selected Unit or Upgrade with `targetTag`. `scope: "entry"` requires
+the source and selected target to occur on the same Roster Entry. `scope: "faction"`
+checks `sourceTag` on the selected Faction. Optional `unitId` and `upgradeId` narrow
+the source Unit and target Upgrade respectively.
 
 Unlock conditions should describe data relationships. They must not encode UI visibility
 or require an application to know a specific named upgrade.
@@ -358,6 +374,9 @@ The `ruleId` allows documentation and callers to identify the failing rule. The
 `message` may be supplied by the rule or generated from rule fields.
 
 Game-specific display text may be added later but must not be required for validation.
+Unsupported rule types return `valid: false` with `code: "unsupported-rule"`. Invalid
+roster or catalog references return an explicit validation error instead of a partial
+success report.
 
 ---
 
