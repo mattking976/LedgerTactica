@@ -1,0 +1,11 @@
+{
+  "id": "sample-optional-kit",
+  "name": "Sample Optional Kit",
+  "category": "wargear",
+  "cost": 5,
+  "costModel": "flat",
+  "tags": [
+    "sample"
+  ],
+  "supported": true
+}

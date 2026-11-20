@@ -1,0 +1,9 @@
+{
+  "id": "sample-cohort",
+  "gameId": "horus-heresy-3.0",
+  "name": "Sample Cohort",
+  "tags": [
+    "sample"
+  ],
+  "supported": true
+}
