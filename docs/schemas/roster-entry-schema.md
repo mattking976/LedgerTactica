@@ -71,6 +71,7 @@ A Unit definition remains the single source of truth.
 
 | Field | Type | Required | Description |
 |----------|----------|----------|----------|
+| id | string | Yes | Stable roster-entry identifier |
 | unitId | string | Yes | Referenced unit |
 | quantity | number | Yes | Number of models in this Roster Entry |
 | selectedUpgrades | array | No | Upgrade selections and quantities |
@@ -87,7 +88,8 @@ separate Roster Entries.
 
 Multiple copies of the same Unit template must be represented by separate Roster
 Entries. This keeps entry size unambiguous and allows each entry to carry its own
-Upgrade selections.
+Upgrade selections. Each entry has a stable `id` so it can be edited or removed
+independently, including when multiple entries reference the same Unit.
 
 ### selectedUpgrades
 
@@ -110,6 +112,7 @@ Each Upgrade selection records its identifier and selected quantity:
 
 ```json
 {
+  "id": "entry-001",
   "unitId": "legion-praetor",
   "quantity": 1,
   "selectedUpgrades": [
@@ -125,6 +128,7 @@ Each Upgrade selection records its identifier and selected quantity:
 
 ```json
 {
+  "id": "entry-002",
   "unitId": "tactical-squad",
   "quantity": 12,
   "selectedUpgrades": []
@@ -135,6 +139,7 @@ Invalid when the Unit's `maxSize` is 10.
 
 ```json
 {
+  "id": "entry-003",
   "unitId": "legion-praetor",
   "quantity": 1,
   "selectedUpgrades": [
@@ -165,12 +170,14 @@ Roster Entry
 
 ### Required Fields
 
+- id
 - unitId
 - quantity
 
 ### Constraints
 
 - quantity must be greater than zero
+- id must be unique within its Roster
 - quantity must fall between the referenced Unit's minSize and maxSize
 - selected Upgrade IDs must exist and be declared by the Unit
 - selected Upgrade quantities must be within the Unit declaration's min/max bounds

@@ -66,6 +66,7 @@ They do not represent roster entries.
 
 ```json
 {
+  "id": "entry-001",
   "unitId": "legion-praetor",
   "quantity": 1,
   "selectedUpgrades": []
