@@ -1,0 +1,23 @@
+{
+  "id": "sample-command-unit",
+  "factionId": "sample-cohort",
+  "name": "Sample Command Unit",
+  "baseCost": 150,
+  "costModel": {
+    "type": "fixed"
+  },
+  "minSize": 1,
+  "maxSize": 1,
+  "availableUpgrades": [
+    {
+      "upgradeId": "sample-command-item",
+      "min": 0,
+      "max": 1
+    }
+  ],
+  "tags": [
+    "command",
+    "sample"
+  ],
+  "supported": true
+}

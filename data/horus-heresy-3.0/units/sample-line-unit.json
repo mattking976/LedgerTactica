@@ -1,0 +1,29 @@
+{
+  "id": "sample-line-unit",
+  "factionId": "sample-cohort",
+  "name": "Sample Line Unit",
+  "baseCost": 100,
+  "costModel": {
+    "type": "per-model",
+    "additionalModelCost": 10
+  },
+  "minSize": 5,
+  "maxSize": 10,
+  "availableUpgrades": [
+    {
+      "upgradeId": "sample-optional-kit",
+      "min": 0,
+      "max": 5
+    },
+    {
+      "upgradeId": "sample-all-models-toggle",
+      "min": 0,
+      "max": 1
+    }
+  ],
+  "tags": [
+    "troops",
+    "sample"
+  ],
+  "supported": true
+}

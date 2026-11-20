@@ -1,0 +1,7 @@
+{
+  "id": "sample-unit-tag-rule",
+  "type": "required-tag",
+  "unitId": "sample-line-unit",
+  "upgradeId": "sample-optional-kit",
+  "tag": "troops"
+}

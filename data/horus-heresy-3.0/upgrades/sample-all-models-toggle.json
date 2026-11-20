@@ -1,0 +1,11 @@
+{
+  "id": "sample-all-models-toggle",
+  "name": "Sample All-Models Toggle",
+  "category": "replacement",
+  "cost": 3,
+  "costModel": "per-model",
+  "tags": [
+    "sample"
+  ],
+  "supported": true
+}

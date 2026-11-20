@@ -1,0 +1,11 @@
+{
+  "id": "sample-command-item",
+  "name": "Sample Command Item",
+  "category": "weapon",
+  "cost": 20,
+  "costModel": "flat",
+  "tags": [
+    "sample"
+  ],
+  "supported": true
+}
