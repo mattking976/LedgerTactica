@@ -58,14 +58,64 @@ Examples include:
 
 ## Fields
 
-| Field | Type | Required |
-|----------|----------|----------|
-| id | string | Yes |
-| name | string | Yes |
-| category | string | Yes |
-| cost | number | Yes |
-| tags | string[] | No |
-| supported | boolean | Yes |
+| Field | Type | Required | Description |
+|----------|----------|----------|-------------|
+| id | string | Yes | Upgrade identifier |
+| name | string | Yes | Display name |
+| category | string | Yes | Upgrade category |
+| cost | number | Yes | Cost for one selected Upgrade quantity |
+| costModel | string | No | `flat` or `per-model`; defaults to `flat` |
+| tags | string[] | No | Classification tags |
+| supported | boolean | Yes | Active support status |
+
+### Cost Models
+
+`flat` is the MVP default. One selected Upgrade costs `cost` once per Roster Entry,
+regardless of entry model count.
+
+```json
+{
+  "id": "paragon-blade",
+  "name": "Paragon Blade",
+  "category": "weapon",
+  "cost": 25,
+  "costModel": "flat",
+  "supported": true
+}
+```
+
+`per-model` costs `cost` for each selected Upgrade quantity. It is intended for
+additional models or separately priced items. The Roster Entry may select a quantity
+within the constraints declared by the Unit.
+
+```json
+{
+  "id": "tactical-optional",
+  "name": "Optional Model",
+  "category": "additional-model",
+  "cost": 12,
+  "costModel": "per-model",
+  "supported": true
+}
+```
+
+The Unit's `availableUpgrades` entry controls eligibility and `min`/`max`
+selection quantities. An Upgrade cannot select a quantity outside those bounds.
+
+### Invalid Example
+
+```json
+{
+  "id": "negative-upgrade",
+  "name": "Negative Upgrade",
+  "category": "weapon",
+  "cost": -10,
+  "costModel": "flat",
+  "supported": true
+}
+```
+
+Negative costs and unsupported cost models are invalid.
 
 ---
 

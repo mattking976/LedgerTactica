@@ -72,8 +72,37 @@ A Unit definition remains the single source of truth.
 | Field | Type | Required | Description |
 |----------|----------|----------|----------|
 | unitId | string | Yes | Referenced unit |
+| quantity | number | Yes | Number of models in this Roster Entry |
+| selectedUpgrades | array | No | Upgrade selections and quantities |
+
+### quantity
+
+`quantity` always represents models for that Roster Entry. It is not a count of
+separate Roster Entries.
+
+- A character or tank uses `quantity: 1`.
+- A five-model squad uses `quantity: 5`.
+- A variable-size squad may use any quantity from the Unit's `minSize` through
+  `maxSize`.
+
+Multiple copies of the same Unit template must be represented by separate Roster
+Entries. This keeps entry size unambiguous and allows each entry to carry its own
+Upgrade selections.
+
+### selectedUpgrades
+
+Each Upgrade selection records its identifier and selected quantity:
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| upgradeId | string | Yes | Referenced Upgrade |
 | quantity | number | Yes | Number selected |
-| selectedUpgrades | string[] | No | Upgrade references |
+
+```json
+"selectedUpgrades": [
+  { "upgradeId": "paragon-blade", "quantity": 1 }
+]
+```
 
 ---
 
@@ -84,10 +113,40 @@ A Unit definition remains the single source of truth.
   "unitId": "legion-praetor",
   "quantity": 1,
   "selectedUpgrades": [
-    "paragon-blade"
+    {
+      "upgradeId": "paragon-blade",
+      "quantity": 1
+    }
   ]
 }
 ```
+
+### Invalid Examples
+
+```json
+{
+  "unitId": "tactical-squad",
+  "quantity": 12,
+  "selectedUpgrades": []
+}
+```
+
+Invalid when the Unit's `maxSize` is 10.
+
+```json
+{
+  "unitId": "legion-praetor",
+  "quantity": 1,
+  "selectedUpgrades": [
+    {
+      "upgradeId": "not-declared-for-this-unit",
+      "quantity": 1
+    }
+  ]
+}
+```
+
+Invalid because the Upgrade is not declared by the Unit.
 
 ---
 
@@ -112,11 +171,15 @@ Roster Entry
 ### Constraints
 
 - quantity must be greater than zero
+- quantity must fall between the referenced Unit's minSize and maxSize
+- selected Upgrade IDs must exist and be declared by the Unit
+- selected Upgrade quantities must be within the Unit declaration's min/max bounds
+- required Upgrade quantities declared by the Unit must be satisfied
 
 ### Referential Constraints
 
 - unitId must reference an existing Unit
-- selectedUpgrades must reference existing Upgrades
+- selectedUpgrades.upgradeId must reference an existing, eligible Upgrade
 
 ---
 
